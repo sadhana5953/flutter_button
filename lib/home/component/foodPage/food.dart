@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
+import 'package:practice/dineoutPage/dineout.dart';
 import 'package:practice/utills/list.dart';
 
 class profile extends StatefulWidget {
@@ -35,7 +36,7 @@ class _profileState extends State<profile> {
           child: Column(
             children: [
               Container(
-                height: height * 0.275,
+                height: height * 0.285,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Color(0xFFE0E1E9),
@@ -58,7 +59,7 @@ class _profileState extends State<profile> {
                             },
                             icon: Icon(Icons.arrow_back)),
                         SizedBox(
-                          width: width * 0.600,
+                          width: width * 0.570,
                         ),
                         IconButton(
                             onPressed: () {},
@@ -70,7 +71,7 @@ class _profileState extends State<profile> {
                       height: height * 0.010,
                     ),
                     Container(
-                      height: height * 0.180,
+                      height: height * 0.190,
                       width: width * 0.850,
                       padding:
                           EdgeInsets.symmetric(vertical: 15, horizontal: 20),
@@ -105,7 +106,7 @@ class _profileState extends State<profile> {
                                     color: Colors.green.shade800,
                                     borderRadius: BorderRadius.circular(10)),
                                 child: Text(
-                                  '⭐ ${offer[selected]['rate']}',
+                                  '⭐ ${(listNo == 0) ? offer[selected]['rate'] : reversedList[selected]['rate']}',
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold),
@@ -116,10 +117,17 @@ class _profileState extends State<profile> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                " ${offer[selected]['add']}",
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              Container(
+                                height: height * 0.030,
+                                width: width * 0.530,
+                                color: Colors.white,
+                                child: Text(
+                                  " ${(listNo == 0) ? offer[selected]['add'] : reversedList[selected]['add']}",
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                               Text(
                                 '1k+ ratings',
@@ -134,19 +142,13 @@ class _profileState extends State<profile> {
                             height: height * 0.005,
                           ),
                           Text(
-                            '${(selected==3||selected==5)?"20-30 min ":offer[selected]['duration']} | Udhana Gam',
+                            '${(selected == 3 || selected == 5 || selected == 8 || selected == 10 || selected == 12 || selected == 13 || selected == 14 || selected == 16) ? "20-30 min " : (listNo == 0) ? offer[selected]['duration'] : reversedList[selected]['duration']} | Udhana Gam',
                             style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black),
                           ),
-                          SizedBox(
-                            height: height * 0.008,
-                          ),
                           Divider(),
-                          SizedBox(
-                            height: height * 0.003,
-                          ),
                           Row(
                             children: [
                               Icon(
@@ -175,7 +177,7 @@ class _profileState extends State<profile> {
                 height: height * 0.030,
               ),
               Container(
-                height: height * 0.070,
+                height: height * 0.080,
                 width: width * 0.850,
                 decoration: BoxDecoration(
                     border: Border.all(width: 2, color: Colors.grey),
@@ -183,7 +185,7 @@ class _profileState extends State<profile> {
                 child: Row(
                   children: [
                     Container(
-                      height: height * 0.070,
+                      height: height * 0.080,
                       width: width * 0.750,
                       decoration: BoxDecoration(
                           border: Border.all(width: 2, color: Colors.white),
@@ -207,7 +209,7 @@ class _profileState extends State<profile> {
                                             discount[change()]['disc'],
                                             style: TextStyle(
                                                 color: Colors.black,
-                                                fontSize: 20,
+                                                fontSize: 18,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           Text(
@@ -398,7 +400,7 @@ class _profileState extends State<profile> {
                 ],
               ),
               ...List.generate(
-                10,
+                listOfFood.length,
                 (index) => Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
@@ -415,14 +417,14 @@ class _profileState extends State<profile> {
                             style: TextStyle(color: Colors.red, fontSize: 15),
                           ),
                           Text(
-                            ' ${listOfFood[selected][index]['name']}',
+                            ' ${(listNo == 0) ? listOfFood[selected][index]['name'] : foodList[selected][index]['name']}',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            ' ₹250',
+                            ' ₹${(listNo == 0) ? listOfFood[selected][index]['price'] : foodList[selected][index]['price']}',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 18,
@@ -436,21 +438,28 @@ class _profileState extends State<profile> {
                                 size: 18,
                               ),
                               Text(
-                                ' 4.4',
+                                ' ${(listNo == 0) ? listOfFood[selected][index]['rate'] : foodList[selected][index]['rate']}',
                                 style: TextStyle(
                                     color: Colors.green.shade900, fontSize: 17),
                               ),
                               Text(
-                                ' (279)',
+                                ' (${(listNo == 0) ? listOfFood[selected][index]['order'] : foodList[selected][index]['order']})',
                                 style: TextStyle(
                                     color: Colors.grey.shade800, fontSize: 15),
                               ),
                             ],
                           ),
-                          Text(
-                            'rohan nayak ',
-                            style: TextStyle(
-                                color: Colors.grey.shade800, fontSize: 15),
+                          Container(
+                            height: height * 0.1,
+                            width: width * 0.5,
+                            color: Colors.white,
+                            child: Text(
+                              '${(listNo == 0) ? listOfFood[selected][index]['description'] : foodList[selected][index]['description']}',
+                              overflow: TextOverflow.fade,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                  color: Colors.grey.shade800, fontSize: 15),
+                            ),
                           ),
                         ],
                       ),
@@ -574,7 +583,8 @@ class _profileState extends State<profile> {
                                   height: height * 0.170,
                                   width: width * 0.350,
                                   decoration: BoxDecoration(
-                                      color: Colors.grey,
+                                      color: Colors.black,
+                                      image: DecorationImage(image: AssetImage('${(listNo == 0) ? listOfFood[selected][index]['img'] : foodList[selected][index]['img']}'),fit: BoxFit.cover,opacity: 0.8),
                                       borderRadius: BorderRadius.circular(10)),
                                 ),
                               ),
